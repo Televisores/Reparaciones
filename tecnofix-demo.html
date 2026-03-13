@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TecnoFix - Reparación profesional de televisores LED, LCD y Smart TV. Venta de repuestos al por mayor. Servicio técnico especializado en Lima.">
+<meta name="keywords" content="reparación televisores, repuestos televisor, pantalla TV, mainboard, LED repair, Lima">
+<title>TecnoFix — Reparación de Televisores & Repuestos</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<style>
+  /* ===== CSS VARIABLES ===== */
+  :root {
+    --bg: #080C14;
+    --surface: #0E1420;
+    --surface2: #141B28;
+    --surface3: #1A2235;
+    --accent: #0EA5E9;
+    --accent2: #38BDF8;
+    --accent-glow: rgba(14,165,233,0.18);
+    --white: #F0F6FF;
+    --muted: #7A8BA0;
+    --border: rgba(14,165,233,0.15);
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+  /* ===== NOISE TEXTURE OVERLAY ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(8,12,20,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted);
+    transition: color 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--accent);
+    color: #000 !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.85rem;
+  }
+  .nav-cta:hover { background: var(--accent2) !important; color: #000 !important; }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 2rem 4rem;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(14,165,233,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(14,165,233,0.06) 0%, transparent 50%),
+      var(--bg);
+    z-index: 0;
+  }
+  /* Grid lines decoration */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(14,165,233,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14,165,233,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 80%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(14,165,233,0.1);
+    border: 1px solid rgba(14,165,233,0.25);
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    color: var(--accent2);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    animation: fadeInUp 0.6s 0.1s ease both;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero h1 .line2 {
+    display: block;
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 0.65em;
+    letter-spacing: -1px;
+    margin-top: 0.2rem;
+  }
+  .hero-desc {
+    margin-top: 1.5rem;
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 500px;
+    font-weight: 300;
+    line-height: 1.7;
+    animation: fadeInUp 0.6s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    padding: 0.85rem 2rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+  }
+  .btn-primary:hover {
+    background: var(--accent2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(14,165,233,0.35);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font-body);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.6s 0.4s ease both;
+  }
+  .stat-item { }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+    font-weight: 300;
+  }
+  /* TV floating illustration */
+  .hero-visual {
+    position: absolute;
+    right: -2%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45%;
+    max-width: 520px;
+    z-index: 1;
+    animation: float 6s ease-in-out infinite, fadeInRight 0.8s 0.3s ease both;
+    pointer-events: none;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(-50%) translateY(0); }
+    50% { transform: translateY(-50%) translateY(-20px); }
+  }
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateY(-50%) translateX(40px); }
+    to { opacity: 1; transform: translateY(-50%) translateX(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== SECTION BASE ===== */
+  section { padding: 6rem 2rem; position: relative; z-index: 1; }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 520px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* ===== SERVICES ===== */
+  #servicios { background: var(--surface); }
+  #servicios::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .service-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .service-card:hover {
+    border-color: rgba(14,165,233,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(14,165,233,0.1);
+  }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    width: 48px; height: 48px;
+    background: var(--accent-glow);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    font-size: 1.4rem;
+  }
+  .service-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+  .service-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ===== REPUESTOS ===== */
+  #repuestos { background: var(--bg); }
+  .parts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 0;
+  }
+  .part-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.25s;
+    cursor: default;
+  }
+  .part-card:hover {
+    border-color: rgba(14,165,233,0.5);
+    background: var(--surface3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(14,165,233,0.08);
+  }
+  .part-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .part-card h4 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: var(--white);
+  }
+  .part-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    background: rgba(14,165,233,0.12);
+    color: var(--accent2);
+    border: 1px solid rgba(14,165,233,0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    margin-top: 0.4rem;
+    font-weight: 500;
+  }
+  .parts-cta {
+    margin-top: 2.5rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .parts-cta-text h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .parts-cta-text p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ===== CLIENTES / CTA ===== */
+  #clientes {
+    background: var(--surface);
+    text-align: center;
+  }
+  #clientes::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .cta-box {
+    background: linear-gradient(135deg, rgba(14,165,233,0.1), rgba(14,165,233,0.03));
+    border: 1px solid rgba(14,165,233,0.25);
+    border-radius: 24px;
+    padding: 4rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at center, rgba(14,165,233,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cta-box h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 1rem;
+  }
+  .cta-box p {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn-whatsapp {
+    background: #25D366;
+    color: #fff;
+    padding: 1rem 2.5rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 1.05rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-body);
+    box-shadow: 0 0 30px rgba(37,211,102,0.25);
+  }
+  .btn-whatsapp:hover {
+    background: #1ebe5b;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 36px rgba(37,211,102,0.35);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+  }
+  .footer-logo span { color: var(--accent); }
+  footer p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.25rem 0;
+    flex-wrap: wrap;
+  }
+  .footer-links a {
+    font-size: 0.85rem;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+  .demo-badge {
+    display: inline-block;
+    background: rgba(251,191,36,0.1);
+    border: 1px solid rgba(251,191,36,0.3);
+    color: #FBBF24;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== MODAL / CHATBOT ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px 24px 16px 16px;
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(60px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .modal-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface2);
+  }
+  .modal-title-wrap { display: flex; align-items: center; gap: 0.75rem; }
+  .modal-avatar {
+    width: 38px; height: 38px;
+    background: var(--accent-glow);
+    border: 1px solid rgba(14,165,233,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .modal-name { font-weight: 500; font-size: 0.95rem; }
+  .modal-status { font-size: 0.75rem; color: #4ade80; }
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+  }
+  .modal-close:hover { background: var(--surface3); color: var(--white); }
+  .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .progress-bar {
+    background: var(--surface3);
+    border-radius: 999px;
+    height: 4px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+  .progress-text {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: right;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+  }
+  .chat-bubble {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 16px 16px 16px 4px;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 90%;
+    color: var(--white);
+  }
+  .chat-bubble .step-num {
+    font-size: 0.7rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.5px;
+  }
+  .form-field { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus,
+  .form-field select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
+  }
+  .form-field textarea { resize: none; min-height: 80px; }
+  .form-field select option { background: var(--surface); }
+  .radio-group { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .radio-btn {
+    flex: 1;
+    min-width: 100px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.65rem 0.75rem;
+    text-align: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted);
+    font-family: var(--font-body);
+  }
+  .radio-btn:hover, .radio-btn.selected {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+    color: var(--accent2);
+  }
+  .modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 0.75rem;
+    background: var(--surface2);
+  }
+  .btn-next {
+    flex: 1;
+    background: var(--accent);
+    color: #000;
+    padding: 0.85rem;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+  }
+  .btn-next:hover { background: var(--accent2); }
+  .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-back {
+    background: var(--surface3);
+    color: var(--muted);
+    padding: 0.85rem 1.25rem;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+  }
+  .btn-back:hover { color: var(--white); border-color: var(--white); }
+  .summary-box {
+    background: var(--surface2);
+    border: 1px solid rgba(14,165,233,0.25);
+    border-radius: 16px;
+    padding: 1.25rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .summary-box h4 {
+    color: var(--white);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+  }
+  .summary-row { display: flex; gap: 0.5rem; margin-bottom: 0.3rem; }
+  .summary-key { color: var(--accent2); font-weight: 500; min-width: 140px; }
+  .whatsapp-preview {
+    background: #0d1f15;
+    border: 1px solid rgba(37,211,102,0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: #86efac;
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.5;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding: 7rem 1.25rem 3rem; }
+    .hero-visual { display: none; }
+    .hero h1 { font-size: 2.8rem; }
+    section { padding: 4rem 1.25rem; }
+    .modal { border-radius: 20px 20px 0 0; max-height: 95vh; }
+    .modal-overlay { padding: 0; align-items: flex-end; }
+    .parts-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { gap: 1.5rem; }
+    .parts-cta { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== DEMO BADGE ===== -->
+<div style="position:fixed;top:70px;right:12px;z-index:99;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.35);color:#FBBF24;font-size:0.7rem;padding:0.25rem 0.7rem;border-radius:999px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:0.5px;">⚡ DEMO</div>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="logo">Tecno<span>Fix</span></div>
+  <ul class="nav-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#repuestos">Repuestos</a></li>
+    <li><a href="#clientes" class="nav-cta">Solicitar reparación</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu(this)">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" style="display:none;position:fixed;top:60px;left:0;right:0;background:rgba(8,12,20,0.97);backdrop-filter:blur(16px);z-index:99;border-bottom:1px solid rgba(14,165,233,0.15);padding:1.5rem;font-family:'DM Sans',sans-serif;">
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:1.25rem;">
+    <li><a href="#inicio" onclick="closeMobileMenu()" style="color:#7A8BA0;font-size:1rem;">Inicio</a></li>
+    <li><a href="#servicios" onclick="closeMobileMenu()" style="color:#7A8BA0;font-size:1rem;">Servicios</a></li>
+    <li><a href="#repuestos" onclick="closeMobileMenu()" style="color:#7A8BA0;font-size:1rem;">Repuestos</a></li>
+    <li><a href="#clientes" onclick="closeMobileMenu()" style="color:#0EA5E9;font-size:1rem;font-weight:500;">Solicitar reparación →</a></li>
+  </ul>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="inicio" class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Servicio técnico especializado</div>
+    <h1>
+      Reparamos tu <span class="accent">televisor</span>
+      <span class="line2">con garantía y repuestos originales</span>
+    </h1>
+    <p class="hero-desc">
+      Diagnóstico profesional, reparación de LED, LCD y Smart TV. 
+      Repuestos al por mayor para técnicos y tiendas en todo Lima.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="openModal()">
+        🔧 Solicitar reparación
+      </button>
+      <button class="btn-secondary" onclick="scrollTo('#repuestos')">
+        📦 Ver repuestos
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">+2,400</div>
+        <div class="stat-label">televisores reparados</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">tasa de éxito</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6 meses</div>
+        <div class="stat-label">garantía de servicio</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TV SVG Illustration -->
+  <div class="hero-visual">
+    <svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- Glow behind TV -->
+      <ellipse cx="250" cy="280" rx="180" ry="30" fill="rgba(14,165,233,0.08)"/>
+      <!-- TV body -->
+      <rect x="60" y="40" width="380" height="240" rx="16" fill="#0E1420" stroke="rgba(14,165,233,0.3)" stroke-width="1.5"/>
+      <!-- Screen -->
+      <rect x="80" y="58" width="340" height="204" rx="8" fill="#060A12"/>
+      <!-- Screen content simulation -->
+      <rect x="80" y="58" width="340" height="204" rx="8" fill="url(#screenGrad)"/>
+      <defs>
+        <linearGradient id="screenGrad" x1="80" y1="58" x2="420" y2="262" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#0c1525"/>
+          <stop offset="50%" stop-color="#0a1a30"/>
+          <stop offset="100%" stop-color="#060e1a"/>
+        </linearGradient>
+      </defs>
+      <!-- Tech scan lines effect -->
+      <line x1="80" y1="90" x2="420" y2="90" stroke="rgba(14,165,233,0.04)" stroke-width="1"/>
+      <line x1="80" y1="120" x2="420" y2="120" stroke="rgba(14,165,233,0.04)" stroke-width="1"/>
+      <line x1="80" y1="150" x2="420" y2="150" stroke="rgba(14,165,233,0.04)" stroke-width="1"/>
+      <line x1="80" y1="180" x2="420" y2="180" stroke="rgba(14,165,233,0.04)" stroke-width="1"/>
+      <line x1="80" y1="210" x2="420" y2="210" stroke="rgba(14,165,233,0.04)" stroke-width="1"/>
+      <line x1="80" y1="240" x2="420" y2="240" stroke="rgba(14,165,233,0.04)" stroke-width="1"/>
+      <!-- Screen content: logo/brand -->
+      <text x="250" y="148" text-anchor="middle" font-family="Syne,sans-serif" font-size="28" font-weight="800" fill="rgba(14,165,233,0.7)">TecnoFix</text>
+      <text x="250" y="172" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="rgba(120,150,180,0.6)">Reparación Profesional</text>
+      <!-- Power LED -->
+      <circle cx="250" cy="16" r="4" fill="rgba(14,165,233,0.6)"/>
+      <!-- Stand -->
+      <rect x="200" y="280" width="100" height="16" rx="4" fill="#0E1420" stroke="rgba(14,165,233,0.2)" stroke-width="1"/>
+      <rect x="160" y="296" width="180" height="10" rx="5" fill="#0E1420" stroke="rgba(14,165,233,0.15)" stroke-width="1"/>
+      <!-- Floating circuit nodes -->
+      <circle cx="430" cy="100" r="5" fill="rgba(14,165,233,0.25)" stroke="rgba(14,165,233,0.5)" stroke-width="1"/>
+      <circle cx="460" cy="160" r="3" fill="rgba(14,165,233,0.15)" stroke="rgba(14,165,233,0.4)" stroke-width="1"/>
+      <circle cx="45" cy="140" r="4" fill="rgba(14,165,233,0.2)" stroke="rgba(14,165,233,0.4)" stroke-width="1"/>
+      <line x1="430" y1="100" x2="460" y2="160" stroke="rgba(14,165,233,0.15)" stroke-width="0.5" stroke-dasharray="4 4"/>
+      <line x1="45" y1="140" x2="80" y2="160" stroke="rgba(14,165,233,0.15)" stroke-width="0.5" stroke-dasharray="4 4"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="servicios">
+  <div class="container">
+    <div class="section-label">Lo que hacemos</div>
+    <h2 class="section-title">Servicios de<br>reparación</h2>
+    <p class="section-sub">Diagnóstico preciso y reparación garantizada para toda marca y modelo de televisor.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📺</div>
+        <h3>LED, LCD y Smart TV</h3>
+        <p>Reparación especializada en todas las tecnologías: Samsung, LG, Sony, TCL, Hisense, Philips y más.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔍</div>
+        <h3>Diagnóstico de fallas</h3>
+        <p>Identificamos el problema con precisión sin costo de evaluación inicial. Presupuesto transparente.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🖥️</div>
+        <h3>Cambio de pantallas</h3>
+        <p>Reemplazo de paneles LED y OLED con piezas originales y compatibles de alta calidad.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>Reparación de placas</h3>
+        <p>Soldadura de componentes SMD, reparación de mainboard, T-Con y tarjetas de control.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💡</div>
+        <h3>Retroiluminación LED</h3>
+        <p>Cambio de tiras LED defectuosas, reparación de driver de backlight y reguladores de voltaje.</p>
+      </div>
+      <div class="service-card" style="background:rgba(14,165,233,0.05);border-color:rgba(14,165,233,0.2);">
+        <div class="service-icon" style="background:rgba(14,165,233,0.15);">📞</div>
+        <h3>¿Otra falla?</h3>
+        <p>Cuéntanos el problema de tu televisor y te daremos una solución. Sin costo de consulta inicial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REPUESTOS ===== -->
+<section id="repuestos">
+  <div class="container">
+    <div class="section-label">Distribución mayorista</div>
+    <h2 class="section-title">Repuestos<br>al por mayor</h2>
+    <p class="section-sub">Proveemos a técnicos, tiendas y distribuidores con stock disponible y precios competitivos.</p>
+    <div class="parts-grid">
+      <div class="part-card">
+        <span class="part-icon">🖥️</span>
+        <h4>Pantallas</h4>
+        <span class="part-badge">Stock</span>
+      </div>
+      <div class="part-card">
+        <span class="part-icon">🔌</span>
+        <h4>Mainboard</h4>
+        <span class="part-badge">Stock</span>
+      </div>
+      <div class="part-card">
+        <span class="part-icon">📡</span>
+        <h4>T-Con</h4>
+        <span class="part-badge">Stock</span>
+      </div>
+      <div class="part-card">
+        <span class="part-icon">⚡</span>
+        <h4>Fuentes de poder</h4>
+        <span class="part-badge">Stock</span>
+      </div>
+      <div class="part-card">
+        <span class="part-icon">💡</span>
+        <h4>Tiras LED</h4>
+        <span class="part-badge">Stock</span>
+      </div>
+      <div class="part-card">
+        <span class="part-icon">🔧</span>
+        <h4>Otros repuestos</h4>
+        <span class="part-badge">Consultar</span>
+      </div>
+    </div>
+    <div class="parts-cta">
+      <div class="parts-cta-text">
+        <h3>¿Necesitas cotizar al por mayor?</h3>
+        <p>Precios especiales para técnicos y distribuidores registrados</p>
+      </div>
+      <button class="btn-primary" onclick="openModal()">Cotizar ahora →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLIENTES ===== -->
+<section id="clientes">
+  <div class="container">
+    <div class="cta-box">
+      <h2>¿Tu TV no funciona?<br>Cuéntanos qué pasó</h2>
+      <p>Completa la consulta en menos de 2 minutos y te contactaremos por WhatsApp de inmediato.</p>
+      <button class="btn-whatsapp" onclick="openModal()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Contactar / Solicitar reparación
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="demo-badge">⚡ Sitio de demostración — versión preliminar</div>
+  <div class="footer-logo">Tecno<span>Fix</span></div>
+  <div class="footer-links">
+    <a href="#inicio">Inicio</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#repuestos">Repuestos</a>
+    <a href="#clientes">Contacto</a>
+  </div>
+  <p>© 2026 TecnoFix · Reparación de televisores · Lima, Perú</p>
+  <p style="margin-top:0.4rem;font-size:0.75rem;">Esta es una demo. Los datos, logo e imágenes serán personalizados en la versión final.</p>
+</footer>
+
+<!-- ===== MODAL / ENCUESTA ===== -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <div class="modal-avatar">🔧</div>
+        <div>
+          <div class="modal-name">Asistente TecnoFix</div>
+          <div class="modal-status">● En línea</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <!-- Content injected by JS -->
+    </div>
+    <div class="modal-footer" id="modal-footer">
+      <!-- Buttons injected by JS -->
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== NAV HELPERS =====
+function toggleMenu(el) {
+  const menu = document.getElementById('mobile-menu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').style.display = 'none';
+}
+function scrollTo(selector) {
+  document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+}
+
+// ===== FORM STATE =====
+const answers = {};
+const steps = [
+  {
+    id: 'marca',
+    label: 'Paso 1 de 7',
+    question: '¿Cuál es la marca y el tamaño de tu televisor?',
+    hint: 'Ej: Samsung 55", LG 43", Sony 50"...',
+    type: 'text',
+    placeholder: 'Marca y tamaño del televisor',
+    key: 'Marca y tamaño'
+  },
+  {
+    id: 'problema',
+    label: 'Paso 2 de 7',
+    question: '¿Qué le pasó a tu TV? Explícanos el problema.',
+    hint: '',
+    type: 'textarea',
+    placeholder: 'Describe el problema con detalle...',
+    key: 'Descripción del problema'
+  },
+  {
+    id: 'enciende',
+    label: 'Paso 3 de 7',
+    question: '¿La TV enciende o no enciende?',
+    hint: '',
+    type: 'radio',
+    options: ['Sí enciende', 'No enciende', 'Enciende y se apaga'],
+    key: '¿Enciende?'
+  },
+  {
+    id: 'imagen',
+    label: 'Paso 4 de 7',
+    question: '¿Se escucha el audio pero no se ve la imagen?',
+    hint: '',
+    type: 'radio',
+    options: ['Sí, hay audio sin imagen', 'No hay audio ni imagen', 'Imagen distorsionada', 'Sin audio y sin imagen'],
+    key: 'Audio/imagen'
+  },
+  {
+    id: 'cuando',
+    label: 'Paso 5 de 7',
+    question: '¿Desde cuándo empezó el problema?',
+    hint: '',
+    type: 'radio',
+    options: ['Hoy', 'Esta semana', 'Este mes', 'Hace más de un mes'],
+    key: '¿Desde cuándo?'
+  },
+  {
+    id: 'golpe',
+    label: 'Paso 6 de 7',
+    question: '¿La TV se cayó o recibió algún golpe?',
+    hint: '',
+    type: 'radio',
+    options: ['Sí se cayó', 'Recibió un golpe', 'No, ningún golpe'],
+    key: '¿Hubo golpe?'
+  },
+  {
+    id: 'distrito',
+    label: 'Paso 7 de 7',
+    question: '¿En qué distrito te encuentras?',
+    hint: 'Ej: Miraflores, San Isidro, La Molina...',
+    type: 'text',
+    placeholder: 'Tu distrito en Lima',
+    key: 'Distrito'
+  }
+];
+
+let currentStep = 0;
+
+function openModal() {
+  currentStep = 0;
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.getElementById('modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  renderStep();
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+
+function renderStep() {
+  const body = document.getElementById('modal-body');
+  const footer = document.getElementById('modal-footer');
+
+  if (currentStep >= steps.length) {
+    renderSummary();
+    return;
+  }
+
+  const step = steps[currentStep];
+  const progress = Math.round(((currentStep) / steps.length) * 100);
+
+  let inputHtml = '';
+  if (step.type === 'text') {
+    inputHtml = `<div class="form-field">
+      <input type="text" id="step-input" placeholder="${step.placeholder}" value="${answers[step.id] || ''}">
+    </div>`;
+  } else if (step.type === 'textarea') {
+    inputHtml = `<div class="form-field">
+      <textarea id="step-input" placeholder="${step.placeholder}">${answers[step.id] || ''}</textarea>
+    </div>`;
+  } else if (step.type === 'radio') {
+    const opts = step.options.map(o =>
+      `<button class="radio-btn${answers[step.id] === o ? ' selected' : ''}" onclick="selectRadio(this,'${o}')">${o}</button>`
+    ).join('');
+    inputHtml = `<div class="radio-group">${opts}</div>`;
+  }
+
+  body.innerHTML = `
+    <div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+      <div class="progress-text">${step.label}</div>
+    </div>
+    <div class="chat-bubble">
+      <div class="step-num">${step.label.toUpperCase()}</div>
+      ${step.question}
+      ${step.hint ? `<div style="font-size:0.78rem;color:var(--muted);margin-top:0.3rem;">${step.hint}</div>` : ''}
+    </div>
+    ${inputHtml}
+  `;
+
+  footer.innerHTML = `
+    ${currentStep > 0 ? `<button class="btn-back" onclick="prevStep()">← Atrás</button>` : ''}
+    <button class="btn-next" onclick="nextStep()">
+      ${currentStep === steps.length - 1 ? 'Ver resumen ✓' : 'Siguiente →'}
+    </button>
+  `;
+}
+
+function selectRadio(el, value) {
+  document.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  const step = steps[currentStep];
+  answers[step.id] = value;
+}
+
+function nextStep() {
+  const step = steps[currentStep];
+  if (step.type === 'text' || step.type === 'textarea') {
+    const input = document.getElementById('step-input');
+    const val = input ? input.value.trim() : '';
+    if (!val) {
+      input.style.borderColor = '#f87171';
+      input.focus();
+      setTimeout(() => input.style.borderColor = '', 1500);
+      return;
+    }
+    answers[step.id] = val;
+  } else if (step.type === 'radio') {
+    if (!answers[step.id]) {
+      const group = document.querySelector('.radio-group');
+      if (group) { group.style.outline = '1px solid #f87171'; group.style.borderRadius = '10px'; setTimeout(() => group.style.outline = '', 1500); }
+      return;
+    }
+  }
+  currentStep++;
+  renderStep();
+}
+
+function prevStep() {
+  if (currentStep > 0) { currentStep--; renderStep(); }
+}
+
+function renderSummary() {
+  const body = document.getElementById('modal-body');
+  const footer = document.getElementById('modal-footer');
+
+  // Build summary rows
+  const rows = steps.map(s =>
+    `<div class="summary-row"><span class="summary-key">${s.key}:</span><span>${answers[s.id] || '—'}</span></div>`
+  ).join('');
+
+  // Build WhatsApp message
+  const msg = buildWhatsAppMessage();
+  const msgPreview = msg.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  body.innerHTML = `
+    <div class="chat-bubble" style="background:rgba(14,165,233,0.07);border-color:rgba(14,165,233,0.25);">
+      ✅ ¡Listo! Aquí está tu consulta. Revisa los datos y envíalos por WhatsApp.
+    </div>
+    <div class="summary-box">
+      <h4>📋 Resumen de tu consulta</h4>
+      ${rows}
+    </div>
+    <div style="font-size:0.8rem;color:var(--muted);margin-top:0.25rem;">Vista previa del mensaje a enviar:</div>
+    <div class="whatsapp-preview">${msgPreview}</div>
+  `;
+
+  footer.innerHTML = `
+    <button class="btn-back" onclick="prevStep()">← Editar</button>
+    <button class="btn-next" style="background:#25D366;color:#fff;display:flex;align-items:center;gap:0.5rem;justify-content:center;" onclick="sendToWhatsApp()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Enviar por WhatsApp
+    </button>
+  `;
+}
+
+function buildWhatsAppMessage() {
+  return `*🔧 Solicitud de reparación — TecnoFix*
+
+📺 *Marca y tamaño:* ${answers['marca'] || '—'}
+🔍 *Problema:* ${answers['problema'] || '—'}
+⚡ *¿Enciende?:* ${answers['enciende'] || '—'}
+🖥️ *Audio/imagen:* ${answers['imagen'] || '—'}
+📅 *¿Desde cuándo?:* ${answers['cuando'] || '—'}
+💥 *¿Hubo golpe?:* ${answers['golpe'] || '—'}
+📍 *Distrito:* ${answers['distrito'] || '—'}
+
+_Enviado desde el formulario web TecnoFix_`;
+}
+
+function sendToWhatsApp() {
+  // Replace with actual business number
+  const phone = '51999999999';
+  const msg = buildWhatsAppMessage();
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Scroll reveal animation
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.service-card, .part-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
